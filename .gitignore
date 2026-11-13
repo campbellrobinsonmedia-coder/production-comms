@@ -1,0 +1,4 @@
+node_modules/
+certs/
+data.json
+data.json.tmp

@@ -1,0 +1,17 @@
+{
+  "name": "production-comms",
+  "version": "1.0.0",
+  "description": "Touch-based production communications: cues, channels, acknowledgements, push-to-talk",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "cert": "node scripts/make-cert.js",
+    "test": "node test/smoke.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.23.0"
+  }
+}

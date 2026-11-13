@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0b0d10" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icon.svg" />
+  <link rel="stylesheet" href="/app.css" />
+  <title>Production Comms</title>
+</head>
+<body>
+  <!-- Sign-in -->
+  <section id="login" class="screen">
+    <form id="loginForm" class="card login-card">
+      <h1 id="showTitle">Production Comms</h1>
+      <label>Your name / position
+        <input id="loginName" autocomplete="name" maxlength="40" placeholder="e.g. Sam – SM" required />
+      </label>
+      <label>Department
+        <select id="loginDept"></select>
+      </label>
+      <label id="passWrap" hidden>Show passcode
+        <input id="loginPass" type="password" autocomplete="off" />
+      </label>
+      <button class="btn primary big" type="submit">Join</button>
+      <p id="loginErr" class="err"></p>
+    </form>
+  </section>
+
+  <!-- App -->
+  <section id="app" class="screen" hidden>
+    <header class="topbar">
+      <span id="connDot" class="dot off" title="Connection"></span>
+      <strong id="appTitle">Production Comms</strong>
+      <span class="spacer"></span>
+      <button id="statusBtn" class="pill">Ready</button>
+      <button id="meBtn" class="pill ghost" title="Profile"></button>
+    </header>
+
+    <div id="talkBanner" class="talk-banner" hidden></div>
+
+    <main>
+      <!-- CUES -->
+      <section id="tab-cues" class="tab">
+        <div class="target-row">
+          <span class="lbl">Send to</span>
+          <div id="cueTargets" class="chips"></div>
+        </div>
+        <div class="cue-tools">
+          <input id="cueNum" class="cue-num" inputmode="text" placeholder="Cue # (optional) e.g. LX 42" maxlength="20" />
+          <button id="editPresetsBtn" class="pill ghost">Edit</button>
+        </div>
+        <div id="presetGrid" class="preset-grid"></div>
+        <form id="presetForm" class="preset-form" hidden>
+          <input id="presetLabel" placeholder="New button label" maxlength="24" required />
+          <select id="presetColor">
+            <option value="blue">Blue</option><option value="green">Green</option>
+            <option value="amber">Amber</option><option value="red">Red</option><option value="gray">Gray</option>
+          </select>
+          <label class="check"><input type="checkbox" id="presetUrgent" /> Urgent</label>
+          <label class="check"><input type="checkbox" id="presetNoAck" /> No ack</label>
+          <button class="btn primary">Add</button>
+        </form>
+        <h3 class="section-h">Recent cues</h3>
+        <div id="cueLog" class="cue-log"></div>
+      </section>
+
+      <!-- CHAT -->
+      <section id="tab-chat" class="tab" hidden>
+        <div class="target-row">
+          <div id="chatChannels" class="chips"></div>
+          <button id="manageChannelsBtn" class="pill ghost">Channels</button>
+        </div>
+        <div id="messages" class="messages"></div>
+        <form id="chatForm" class="chat-form">
+          <button type="button" id="ackToggle" class="pill ghost" title="Ask everyone to acknowledge">Ack?</button>
+          <input id="chatInput" autocomplete="off" placeholder="Message…" maxlength="1000" />
+          <button class="btn primary">Send</button>
+        </form>
+      </section>
+
+      <!-- BOARD -->
+      <section id="tab-board" class="tab" hidden>
+        <h3 class="section-h">Waiting on acknowledgement</h3>
+        <div id="pendingAcks"></div>
+        <h3 class="section-h">Crew</h3>
+        <div id="crewBoard"></div>
+      </section>
+    </main>
+
+    <!-- Push to talk -->
+    <div class="ptt-wrap">
+      <button id="pttTarget" class="ptt-target">All Call ▾</button>
+      <button id="pttBtn" class="ptt"><span>HOLD<br />TO TALK</span></button>
+    </div>
+
+    <nav class="tabbar">
+      <button data-tab="cues" class="active">Cues<b id="badge-cues" class="badge" hidden></b></button>
+      <button data-tab="chat">Chat<b id="badge-chat" class="badge" hidden></b></button>
+      <button data-tab="board">Board<b id="badge-board" class="badge" hidden></b></button>
+    </nav>
+  </section>
+
+  <!-- Incoming cue alert -->
+  <div id="alert" class="alert" hidden>
+    <div class="alert-box">
+      <div id="alertFrom" class="alert-from"></div>
+      <div id="alertText" class="alert-text"></div>
+      <div id="alertMeta" class="alert-meta"></div>
+      <button id="alertAck" class="btn big ack">ACKNOWLEDGE</button>
+      <button id="alertDismiss" class="btn ghost">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Bottom sheet (generic) -->
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-body">
+      <div class="sheet-head"><strong id="sheetTitle"></strong><button id="sheetClose" class="pill ghost">Close</button></div>
+      <div id="sheetContent"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>
